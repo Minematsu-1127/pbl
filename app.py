@@ -1,21 +1,24 @@
-pip install gensim
-
 import streamlit as st
-from gensim.summarization import summarize
+
+def text_summarization(text):
+    # ここに要約の処理を実装する
+    # 例: text を処理して要約を生成する処理
+    summary = "ここに要約の結果が入ります"
+    return summary
 
 def main():
     st.title("Text Summarizer App")
 
     # テキスト入力
-    input_text = st.text_area("入力テキストを入力してください", "")
+    input_text = st.text_area("Enter Text Here", "")
 
     # 要約ボタンがクリックされたときの処理
-    if st.button("要約する"):
-        # テキスト要約
-        summary = summarize(input_text)
+    if st.button("Summarize"):
+        # 要約処理の呼び出し
+        summary = text_summarization(input_text)
 
         # 要約結果の表示
-        st.subheader("要約結果")
+        st.subheader("Summary")
         st.write(summary)
 
 if __name__ == "__main__":
