@@ -1,7 +1,7 @@
-pip install bert-extractive-summarizer
+pip install gensim
 
 import streamlit as st
-from summarizer import Summarizer
+from gensim.summarization import summarize
 
 def main():
     st.title("Text Summarizer App")
@@ -11,9 +11,8 @@ def main():
 
     # 要約ボタンがクリックされたときの処理
     if st.button("要約する"):
-        # BERT Extractive Summarizerを使用した要約
-        model = Summarizer()
-        summary = model(input_text, min_length=30, max_length=100)
+        # テキスト要約
+        summary = summarize(input_text)
 
         # 要約結果の表示
         st.subheader("要約結果")
@@ -21,4 +20,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
