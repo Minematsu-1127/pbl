@@ -7,18 +7,18 @@ def text_summarization(text):
     return summary
 
 def main():
-    st.title("Text Summarizer App")
+    st.title("要約アプリケーション")
 
     # テキスト入力
-    input_text = st.text_area("Enter Text Here", "")
+    input_text = st.text_area("テキストを入力してください", "")
 
     # 要約ボタンがクリックされたときの処理
-    if st.button("Summarize"):
+    if st.button("要約"):
         # 要約処理の呼び出し
         summary = text_summarization(input_text)
 
         # 要約結果の表示
-        st.subheader("Summary")
+        st.subheader("要約結果")
         st.write(summary)
 
 if __name__ == "__main__":
