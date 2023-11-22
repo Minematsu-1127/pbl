@@ -7,13 +7,26 @@ def text_summarization(text):
     return summary
 
 def main():
-    st.title("要約アプリケーション")
+    st.markdown("# &#8203;``【忙しい方必見！】``&#8203;\n# もぎたてテレビを簡単まとめ")
+    
 
-    # テキスト入力
-    input_text = st.text_area("テキストを入力してください", "")
+    # テキスト入力またはファイルアップロードの選択
+    option = st.radio("テキスト入力またはファイルアップロード", ("テキスト入力", "ファイルアップロード"))
+
+    if option == "テキスト入力":
+        # テキスト入力
+        input_text = st.text_area("もぎたてテレビの原稿を入力してください", "")
+    else:
+        # ファイルアップロード
+        uploaded_file = st.file_uploader("もぎたてテレビの原稿をアップロードしてください", type=["txt"])
+        if uploaded_file is not None:
+            file_contents = uploaded_file.read()
+            input_text = file_contents.decode("utf-8")
+        else:
+            input_text = ""
 
     # 要約ボタンがクリックされたときの処理
-    if st.button("要約"):
+    if st.button("もぎたて！"):
         # 要約処理の呼び出し
         summary = text_summarization(input_text)
 
