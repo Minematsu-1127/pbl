@@ -10,7 +10,7 @@ def text_summarization(text):
     return summary
 
 def main():
-    st.markdown("# &#8203;``&#8203;``【oaicite:0】``&#8203;``&#8203;\n# もぎたてテレビを簡単まとめ")
+    st.markdown("# &#8203;``【忙しい方必見！】``&#8203;\n# もぎたてテレビを簡単まとめ")
     st.image("thum_mogitate.png", width=500)
 
     # 要約結果の表示部分をクリアするためのプレースホルダー
