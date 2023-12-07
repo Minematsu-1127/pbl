@@ -18,9 +18,7 @@ def main():
 
     # チャット履歴の初期化
     if "messages" not in st.session_state:
-        st.session_state.messages = [
-            SystemMessage(content="入力された文章を300字程度に要約してください")
-        ]
+        st.session_state.messages = []
 
    # テキスト入力またはファイルアップロードの選択
     option = st.radio("テキスト入力またはファイルアップロード", ("テキスト入力", "ファイルアップロード"))
@@ -53,8 +51,7 @@ def main():
         elif isinstance(message, HumanMessage):
             with st.chat_message('user'):
                 st.markdown(message.content)
-        else:  # isinstance(message, SystemMessage):
-            st.write(f"System message: {message.content}")
+
     
     
 
