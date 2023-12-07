@@ -22,12 +22,23 @@ def main():
             SystemMessage(content="入力された文章を300字程度に要約してください")
         ]
 
-    # ユーザーの入力を監視
-    if user_input := st.chat_input("もぎたてテレビの原稿を入力してください"):
-        st.session_state.messages.append(HumanMessage(content=user_input))
-        with st.spinner("ChatGPT is typing ..."):
-            response = llm(st.session_state.messages)
-        st.session_state.messages.append(AIMessage(content=response.content))
+    # ユーザーのテキスト入力を監視
+if user_text_input := st.text_input("もぎたてテレビの原稿を入力してください"):
+    st.session_state.messages.append(HumanMessage(content=user_text_input))
+    with st.spinner("ChatGPT is typing ..."):
+        response = llm(st.session_state.messages)
+    st.session_state.messages.append(AIMessage(content=response.content))
+
+    # ユーザーのファイルアップロードを監視
+uploaded_file = st.file_uploader("もぎたてテレビの原稿をアップロードしてください", type=["txt"])
+
+if uploaded_file is not None:
+    content = uploaded_file.read().decode("utf-8")
+    st.session_state.messages.append(HumanMessage(content=content))
+    with st.spinner("ChatGPT is typing ..."):
+        response = llm(st.session_state.messages)
+    st.session_state.messages.append(AIMessage(content=response.content))
+
 
     # チャット履歴の表示
     messages = st.session_state.get('messages', [])
