@@ -22,22 +22,26 @@ def main():
             SystemMessage(content="入力された文章を300字程度に要約してください")
         ]
 
-    # ユーザーのテキスト入力を監視
-if user_text_input := st.text_input("もぎたてテレビの原稿を入力してください"):
-    st.session_state.messages.append(HumanMessage(content=user_text_input))
-    with st.spinner("ChatGPT is typing ..."):
-        response = llm(st.session_state.messages)
-    st.session_state.messages.append(AIMessage(content=response.content))
+   # テキスト入力またはファイルアップロードの選択
+    option = st.radio("テキスト入力またはファイルアップロード", ("テキスト入力", "ファイルアップロード"))
 
-    # ユーザーのファイルアップロードを監視
-uploaded_file = st.file_uploader("もぎたてテレビの原稿をアップロードしてください", type=["txt"])
-
-if uploaded_file is not None:
-    content = uploaded_file.read().decode("utf-8")
-    st.session_state.messages.append(HumanMessage(content=content))
-    with st.spinner("ChatGPT is typing ..."):
-        response = llm(st.session_state.messages)
-    st.session_state.messages.append(AIMessage(content=response.content))
+    if option == "テキスト入力":
+        # テキスト入力
+        if user_input := st.text_area("もぎたてテレビの原稿を入力してください", ""):
+            st.session_state.messages.append(HumanMessage(content=user_input))
+            with st.spinner("ChatGPT is typing ..."):
+                response = llm(st.session_state.messages)
+            st.session_state.messages.append(AIMessage(content=response.content))
+    else:
+        # ファイルアップロード
+        uploaded_file = st.file_uploader("もぎたてテレビの原稿をアップロードしてください", type=["txt"])
+        if uploaded_file is not None:
+            file_contents = uploaded_file.read()
+            input_text = file_contents.decode("utf-8")
+            st.session_state.messages.append(HumanMessage(content=input_text))
+            with st.spinner("ChatGPT is typing ..."):
+                response = llm(st.session_state.messages)
+            st.session_state.messages.append(AIMessage(content=response.content))
 
 
     # チャット履歴の表示
